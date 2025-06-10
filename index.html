@@ -11,15 +11,35 @@
     <h1>My To-Do List</h1>
 
     <form id="todo-form">
-      <input type="text" id="todo-input" placeholder="Type here" />
-      <button type="submit">&#10133</button>
+      <div class="input-group">
+        <div class="main-input-container">
+          <input type="text" id="todo-input" placeholder="Tasks with #tags" required />
+          
+          <div class="options-container">
+            <div class="options-buttons">
+              <button type="button" id="toggle-date-btn">Add Date</button>
+              <button type="button" id="toggle-category-btn">Add Category</button>
+            </div>
+            
+            <div class="options-inputs">
+              <input type="text" id="due-date-input" placeholder="DD/MM/YYYY" class="hidden"/>
+              <input type="text" id="category-input" placeholder="Category" class="hidden" list="category-list"/>
+              <datalist id="category-list"></datalist>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="add-btn">+</button>
+      </div>
     </form>
 
     <div id="filter-bar">
       <button id="filter-all" class="active">All</button>
       <button id="filter-done">Done</button>
       <button id="filter-todo">Not Done</button>
-      </div>
+      <button id="filter-overdue">Overdue</button>
+      <div id="category-filters"></div>
+      <div id="tag-filters"></div>
+    </div>
 
     <ul id="todo-list"></ul>
   </div>
