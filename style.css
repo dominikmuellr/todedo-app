@@ -1,310 +1,654 @@
+/* CSS Variables for Material You inspired colors - Soft Green Palette */
+:root {
+    /* Primary color: A gentle, earthy green (#386A20) */
+    --color-primary: #386A20;
+    --color-on-primary: #FFFFFF;
+    --color-primary-container: #B8F394;
+    --color-on-primary-container: #082100;
+
+    /* Secondary color: A muted, complementary brown-green */
+    --color-secondary: #566249;
+    --color-on-secondary: #FFFFFF;
+    --color-secondary-container: #DAE7C8;
+    --color-on-secondary-container: #141E0B;
+
+    /* Tertiary color: A subtle, soft blue-grey for accent */
+    --color-tertiary: #386568;
+    --color-on-tertiary: #FFFFFF;
+    --color-tertiary-container: #BCEBF0;
+    --color-on-tertiary-container: #002022;
+
+    /* Error color: standard red for warnings/errors */
+    --color-error: #BA1A1A;
+    --color-on-error: #FFFFFF;
+    --color-error-container: #FFDAD6;
+    --color-on-error-container: #410002;
+
+    /* Warning color: amber for due soon/today */
+    --color-warning: #FFB300;
+    --color-on-warning: #212121;
+    --color-warning-container: #FFE082;
+    --color-on-warning-container: #553C00;
+
+    /* Neutral colors: for background, surfaces, and outlines */
+    --color-background: #FDFDF6;
+    --color-on-background: #1A1C18;
+
+    --color-surface: #FDFDF6;
+    --color-on-surface: #1A1C18;
+    --color-surface-variant: #DFE4D7;
+    --color-on-surface-variant: #43483F;
+
+    --color-outline: #74796F;
+    --color-outline-variant: #C3C8BC;
+    --color-surface-container-lowest: #FFFFFF;
+    --color-surface-container-low: #F7F7F0;
+    --color-surface-container: #F1F1EB;
+    --color-surface-container-high: #EBEBE5;
+    --color-surface-container-highest: #E5E5DE;
+
+    /* Material You standard elevation/shadows */
+    --shadow-elevation-1: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
+    --shadow-elevation-2: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+    --shadow-elevation-3: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+}
+
+/* Base styles using CSS variables and Inter font */
 body {
-  font-family: sans-serif;
-  padding: 2rem;
-  background: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    padding: 2rem;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .app-container {
-  max-width: 400px;
+  max-width: 560px;
   margin: 2rem auto;
-  background: #fafafa;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  background: var(--color-surface-container);
+  padding: 1.5rem; /* 24px */
+  border-radius: 16px;
+  box-shadow: var(--shadow-elevation-2);
+  /* overflow: hidden; /* Consider if needed, can clip calendar if not appended to body */
+}
+
+h1 {
+  text-align: center;
+  color: var(--color-on-surface);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 1.75rem; /* Slightly larger for Material You feel */
 }
 
 form {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   width: 100%;
-}
-
-.main-input-container {
-  width: calc(100% - 50px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 .input-group {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 0.75rem; /* Slightly increased gap */
   width: 100%;
 }
 
-input {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.main-input-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 #todo-input {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-outline);
+  border-radius: 8px; /* Or 4px for filled style */
   box-sizing: border-box;
+  font-size: 1rem;
+  background-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-li {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.task-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.due-date {
-  font-size: 0.75rem;
-  border-radius: 12px;
-  padding: 0.1rem 0.5rem;
-  display: inline-block;
-  background-color: #6c757d;
-  color: white;
-  margin-right: 0.2rem;
-}
-
-.overdue {
-  background-color: #d9534f;
-  color: white;
-}
-
-.due-soon {
-  background-color: #f0ad4e;
-  color: white;
-}
-
-.done {
-  text-decoration: line-through;
-  text-decoration-style: wavy;
-  opacity: 0.6;
-}
-
-.add-btn {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  background-color: transparent;
-  color: #000;
-  border: none;
-  border-radius: 0;
-  font-size: 1.5rem; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.add-btn:hover {
-  background-color: transparent;
-  transform: scale(1.1);
-  opacity: 1;
-}
-
-#filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  padding: 0.5rem 0;
-  width: 100%;
-  border-bottom: 1px solid #eee;
-}
-
-.main-filters {
-  display: inline-flex;
-  gap: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-#filter-bar button, .tag-filter, .category-filter {
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background: #eee;
-  cursor: pointer;
-  margin-bottom: 0.3rem;
-}
-
-.tag-filter, .category-filter {
-  position: relative;
-  padding-right: 0.6rem;
-  display: flex;
-  align-items: center;
-}
-
-#todo-list {
-  clear: both;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0;
-  list-style-type: none;
-}
-
-#filter-bar button.active, .tag-filter.active, .category-filter.active {
-  font-weight: bold;
-  border-bottom: 2px solid #000;
-  background-color: #f5f5f5;
-}
-
-.hidden {
-  display: none;
-}
-
-.date-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;  
-}
-
-#toggle-date-btn {
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-#toggle-date-btn:hover {
-  background-color: #e9ecef;
-}
-
-#toggle-date-btn.active {
-  background-color: #e9ecef;
-  border-color: #dae0e5;  
-}
-
-.options-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.category-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-#toggle-category-btn {
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#toggle-category-btn:hover {
-  background-color: #e9ecef;
-}
-
-#toggle-category-btn.active {
-  background-color: #e2e6ea;
-  border-color: #dae0e5;
-}
-
-.filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.tag-chip, .category-chip {
-  font-size: 0.7rem;
-  border-radius: 12px;
-  padding: 0.1rem 0.5rem;
-  margin-right: 0.2rem;
-  display: inline-block;
-}
-
-.category-chip {
-  background-color: #4b6bfb;
-  color: white;
-}
-
-.tag-chip {
-  background-color: #e9ecef;
-  color: #495057;
-}
-
-.task-info {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 0.3rem;
-  font-size: 0.8rem;
-}
-
-.task-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.3rem;
+#todo-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-container);
 }
 
 .options-container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem; /* Increased gap */
+  position: relative; /* For positioning dropdown menus */
 }
 
 .options-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem; /* Increased gap */
   flex-wrap: wrap;
 }
 
 #toggle-date-btn,
 #toggle-category-btn {
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  font-size: 0.875rem; /* 14px */
+  padding: 0.6rem 1.25rem; /* Material You buttons often have more padding */
+  background-color: var(--color-surface-container-high);
+  border: 1px solid var(--color-outline);
+  color: var(--color-on-surface-variant);
+  border-radius: 20px; /* Pill-shaped for Material You "Chip" or "Segmented Button" like feel */
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
   flex: 1;
-  min-width: 100px;
+  min-width: 120px;
   text-align: center;
+  font-weight: 500;
+}
+
+#toggle-date-btn:hover,
+#toggle-category-btn:hover {
+  background-color: var(--color-surface-variant);
+  border-color: var(--color-outline-variant);
+  box-shadow: var(--shadow-elevation-1);
+}
+
+#toggle-date-btn.active,
+#toggle-category-btn.active {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border-color: var(--color-secondary-container); /* Or var(--color-secondary) */
 }
 
 .options-inputs {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.75rem;
   width: 100%;
 }
 
-#due-date-input,
-#category-input {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+/* #due-date-input and #category-input are styled by input.flatpickr-input or specific rules if needed */
+#category-input { /* Style for the category text input if it's shown */
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-outline);
+  border-radius: 8px;
   width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+}
+#category-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-container);
+}
+
+
+.add-btn {
+  width: 48px; /* Material FAB mini size */
+  height: 48px;
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: 16px; /* Rounded FAB-like button */
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-elevation-2);
+  border: none;
+}
+
+.add-btn:hover {
+  background-color: var(--color-primary); /* Slightly darker when hovered */
+  opacity: 0.9;
+  box-shadow: var(--shadow-elevation-3);
+}
+
+/* Filter bar styling */
+#filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 1.5rem 0; /* 24px top and bottom */
+  border-bottom: 1px solid var(--color-outline-variant);
+  padding-bottom: 0.75rem;
+}
+
+#filter-bar button,
+.category-filter {
+  font-size: 0.875rem; /* 14px */
+  padding: 0.4rem 1rem; /* Material You buttons often have more padding */
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-outline);
+  color: var(--color-on-surface-variant);
+  border-radius: 20px; /* Pill-shaped for Material You "Chip" or "Segmented Button" like feel */
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+#filter-bar button:hover,
+.category-filter:hover {
+  background-color: var(--color-surface-container-high);
+  border-color: var(--color-outline);
+}
+
+#filter-bar button.active,
+.category-filter.active {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
+}
+
+.category-filter {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding-right: 0.75rem;
+}
+
+.category-filter-text {
+  margin-right: 0.25rem;
+}
+
+.delete-category-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+  margin-left: 0.25rem;
+  cursor: pointer;
+  opacity: 0.7;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-filter:hover .delete-category-btn {
+  opacity: 1;
+}
+
+.delete-category-btn:hover {
+  opacity: 1;
+}
+
+.category-filter.active .delete-category-btn {
+  color: var(--color-on-primary);
+}
+.category-filter.active .delete-category-btn:hover {
+  color: var(--color-on-primary);
+  opacity: 1;
+}
+
+/* Todo list styles */
+#todo-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+li.todo-item { /* Styles for each task item */
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 8px;
+  background-color: var(--color-surface-container-low);
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow-elevation-1);
+}
+
+li.todo-item:hover {
+  background-color: var(--color-surface-container);
+  box-shadow: var(--shadow-elevation-2);
+}
+
+li.todo-item:last-child {
+  border-bottom: none;
+}
+
+.task-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.task-top-row > span { /* The main task text */
+  flex-grow: 1;
+  break-word: break-word;
+  cursor: pointer;
+  color: var(--color-on-surface);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.task-top-row > span.done {
+  text-decoration: line-through;
+  color: var(--color-on-surface-variant);
+  opacity: 0.7;
+}
+
+.delete-task-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-on-surface-variant);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  height: 28px;
+  width: 28px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.delete-task-btn:hover {
+  color: var(--color-error);
+  background-color: var(--color-error-container);
+}
+
+.edit-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-outline);
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+  margin-right: 8px;
+  flex-grow: 1;
+}
+
+.task-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.category-chip,
+.tag-chip {
+  padding: 0.25rem 0.625rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.category-chip {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.tag-chip {
+  background-color: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+}
+
+.task-info .due-date-pill.due-today {
+  background-color: var(--color-warning-container);
+  color: var(--color-on-warning-container);
+}
+
+.task-info .due-date-pill.overdue {
+  background-color: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+
+.task-info .due-date-pill.due-tomorrow {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.task-info .due-date-pill { /* Default for other dates */
+  background-color: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+}
+
+/* Date pill in the form */
+.selected-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.selected-pills-container.hidden {
+  display: none;
+}
+
+.form-date-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  box-shadow: var(--shadow-elevation-1);
+  position: relative;
+}
+
+.pill-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  margin-left: 0.375rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+.pill-delete-btn:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+/* Styling for the date input */
+#due-date-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-outline);
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+}
+
+#due-date-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-container);
+}
+
+/* Hide calendar icon in Chromium */
+#due-date-input::-webkit-calendar-picker-indicator {
+  opacity: 0.8;
+  cursor: pointer;
+  color: var(--color-on-surface-variant);
+}
+
+/* Handle flatpickr-specific styling */
+#due-date-input[style*="position: absolute"],
+.flatpickr-input[readonly] {
+  background-color: var(--color-surface-container-highest) !important;
+  color: var(--color-on-surface) !important;
+  border-color: var(--color-outline) !important;
+  box-shadow: var(--shadow-elevation-2) !important;
+  padding: 0.75rem 1rem !important;
+  height: auto !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: 100% !important;
 }
 
 #due-date-input.hidden {
   display: none;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  #due-date-input[style*="position: absolute"],
+  .flatpickr-input[readonly] {
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Empty state styling */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+
+/* Modal styles */
+#date-picker-container,
+.date-picker-modal,
+.category-modal {
+  background-color: var(--color-surface-container-lowest);
+  border-radius: 12px;
+  box-shadow: var(--shadow-elevation-3);
+  padding: 1.25rem;
+  z-index: 1000;
+  width: 300px;
+  max-width: 95vw;
+  box-sizing: border-box;
+  border: 1px solid var(--color-outline-variant);
+}
+
+.date-picker-modal h3,
+.category-modal h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: var(--color-on-surface);
+  font-weight: 600;
+}
+
+.modal-button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.modal-button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+}
+
+.modal-cancel-btn {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-outline-variant);
+}
+
+.modal-confirm-btn {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+}
+
+input.date-picker-modal-input,
+input.category-modal-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-outline);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface);
+  margin-top: 0.5rem;
+}
+
+/* Calendar picker appearance */
+input[type="date"].date-picker-modal-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+input.date-picker-modal-input:focus,
+input.category-modal-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-container);
+}
+
