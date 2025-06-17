@@ -1,15 +1,16 @@
-// dateUtils.js - Date related utilities
+// Date Utility Module
+import * as DatePickerUtils from './datePickerUtils.js';
 
-// Parse date input in DD/MM/YYYY format
+// Date Parsing
 export function parseDateInput(dateString) {
   const parts = dateString.split('/');
   if (parts.length === 3) {
-    return new Date(parts[2], parseInt(parts[1])-1, parseInt(parts[0]));
+    return new Date(parts[2], parseInt(parts[1]) - 1, parseInt(parts[0]));
   }
   return null;
 }
 
-// Format date to DD/MM/YYYY
+// Date Formatting
 export function formatDate(date) {
   if (!date) return '';
   const day = date.getDate().toString().padStart(2, '0');
@@ -18,7 +19,7 @@ export function formatDate(date) {
   return `${day}/${month}/${year}`;
 }
 
-// Check if a date is overdue
+// Date Status Checking
 export function isOverdue(dateString) {
   if (!dateString) return false;
   const date = new Date(dateString);
@@ -27,45 +28,52 @@ export function isOverdue(dateString) {
   return date < today;
 }
 
-// Check if a date is due soon (today or tomorrow)
 export function isDueSoon(dateString) {
   if (!dateString) return false;
   const date = new Date(dateString);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   
-  return date >= today && date <= tomorrow;
+  return date.getTime() === today.getTime() || date.getTime() === tomorrow.getTime();
 }
 
-// Update status of all due dates in the DOM
+// Date Status Update
 export function updateDueDateStatus() {
   const today = new Date();
-  const tomorrow = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
 
   document.querySelectorAll('#todo-list li').forEach(li => {
-    const dueDateElement = li.querySelector('.due-date');
-    if (dueDateElement) {
-      const isDone = li.querySelector('span').classList.contains('done');
-      if (isDone) return;
+    const dueDateElement = li.querySelector('.due-date-pill');
+    
+    if (dueDateElement && dueDateElement.dataset.isoDate) {
+      const isoDateString = dueDateElement.dataset.isoDate;
+      const taskDueDate = new Date(isoDateString);
+      
+      const taskTextSpan = li.querySelector('.task-top-row > span:not(.category-chip):not(.tag-chip):not(.due-date-pill)');
+      const isDone = taskTextSpan ? taskTextSpan.classList.contains('done') : false;
 
-      const dateText = dueDateElement.textContent.replace(/\s\(.*\)$/, '').replace('Due: ', '');
-      const parts = dateText.split('/');
-      if (parts.length === 3) {
-        const dueDate = new Date(parts[2], parseInt(parts[1])-1, parseInt(parts[0]));
+      dueDateElement.classList.remove('overdue', 'due-today', 'due-tomorrow');
+      dueDateElement.textContent = DatePickerUtils.formatDateDisplay(taskDueDate);
 
-        dueDateElement.classList.remove('overdue', 'due-soon');
-        dueDateElement.textContent = dueDate.toLocaleDateString('en-GB');
-
-        if (dueDate < today) {
-          dueDateElement.classList.add("overdue");
-        } else if (dueDate <= tomorrow) {
-          dueDateElement.classList.add("due-soon");
-        }
+      if (isDone) {
+        return;
       }
+
+      if (taskDueDate < today) {
+        dueDateElement.classList.add("overdue");
+      } else if (taskDueDate.getTime() === today.getTime()) {
+        dueDateElement.classList.add("due-today");
+      } else if (taskDueDate.getTime() === tomorrow.getTime()) {
+        dueDateElement.classList.add("due-tomorrow");
+      }
+    } else if (dueDateElement) {
+      dueDateElement.classList.remove('overdue', 'due-today', 'due-tomorrow');
     }
   });
 }

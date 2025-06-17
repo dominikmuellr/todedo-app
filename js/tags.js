@@ -1,16 +1,16 @@
-// tags.js - Tag management
+// Tag Management Module
 import * as Storage from './storage.js';
 import { applyFilter } from './filters.js';
 
 let allTags = [];
 
-// Initialize tags
-export function init(savedTags = []) {
+// Tag Initialization
+export function initTags(savedTags = []) {
   allTags = savedTags;
   updateTagFilters();
 }
 
-// Extract hashtags from text
+// Tag Extraction
 export function extractTags(text) {
   const tags = [];
   const tagRegex = /#(\w+)/g;
@@ -20,7 +20,6 @@ export function extractTags(text) {
     const tag = match[1].toLowerCase();
     tags.push(tag);
     
-    // Add to global tags list if new
     if (!allTags.includes(tag)) {
       allTags.push(tag);
       updateTagFilters();
@@ -30,7 +29,7 @@ export function extractTags(text) {
   return tags;
 }
 
-// Update tag filter buttons
+// Tag Filter UI
 export function updateTagFilters() {
   const tagFiltersContainer = document.getElementById("tag-filters");
   tagFiltersContainer.innerHTML = "";
@@ -59,7 +58,7 @@ export function updateTagFilters() {
   Storage.saveTagsToStorage(allTags);
 }
 
-// Delete a tag
+// Tag Deletion
 export function deleteTag(tag) {
   const index = allTags.indexOf(tag);
   if (index !== -1) {
@@ -67,7 +66,6 @@ export function deleteTag(tag) {
   }
   
   Storage.saveTagsToStorage(allTags);
-  
   updateTagFilters();
   
   const tasks = Storage.getTasksFromStorage();
@@ -95,7 +93,63 @@ export function deleteTag(tag) {
   applyFilter('all');
 }
 
-// Get all tags
+// Tag Rendering
+export function createTagChipsHTML(tagsArray) {
+    if (!tagsArray || tagsArray.length === 0) return '';
+    return tagsArray.map(tag =>
+        `<span class="tag-chip bg-tertiary-container text-on-tertiary-container px-2.5 py-1 rounded-lg">#${tag}</span>`
+    ).join('');
+}
+
+// Tag Retrieval
 export function getTags() {
   return [...allTags];
+}
+
+// Form Tag Management
+let selectedTags = [];
+
+export function getSelectedTags() {
+    return selectedTags;
+}
+
+export function addTag(tagText) {
+    if (tagText && !selectedTags.includes(tagText)) {
+        selectedTags.push(tagText);
+        renderSelectedTags();
+    }
+}
+
+export function removeTag(tagText) {
+    selectedTags = selectedTags.filter(tag => tag !== tagText);
+    renderSelectedTags();
+}
+
+export function resetTagInput() {
+    selectedTags = [];
+    const tagContainer = document.getElementById('selected-tags');
+    if (tagContainer) {
+        tagContainer.innerHTML = '';
+    }
+}
+
+function renderSelectedTags() {
+    const tagContainer = document.getElementById('selected-tags');
+    if (!tagContainer) return;
+    
+    tagContainer.innerHTML = '';
+    
+    selectedTags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'tag-chip';
+        tagElement.textContent = tag;
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'pill-delete-btn';
+        deleteButton.innerHTML = '&times;';
+        deleteButton.addEventListener('click', () => removeTag(tag));
+        
+        tagElement.appendChild(deleteButton);
+        tagContainer.appendChild(tagElement);
+    });
 }
