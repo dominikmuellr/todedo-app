@@ -6,17 +6,13 @@
   <meta name="theme-color" content="#386A20">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>To-Do App</title>
+  <title>ToDodo</title>
   <link rel="stylesheet" href="style.css"/>
   
-  <!-- Remove Flatpickr since we're using native date pickers -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Inter Font from Google Fonts for Material You feel -->
+  
+  <!-- Inter Font from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Font Awesome for Icons (e.g., plus, trash) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
@@ -315,70 +311,218 @@
       }, 500);
     });
   </script>
+  <script src="js/darkMode.js" defer></script>
 </head>
-<body class="p-8"> <!-- Added p-8 from your new body tag -->
-    <div class="app-container max-w-md w-full mx-auto bg-surface-container-low shadow-xl rounded-2xl p-6 overflow-hidden">
-        <h1 id="app-title" class="text-center text-on-surface text-3xl font-bold mb-6">Your To-Do List</h1>
-
-        <!-- Add To-Do Form -->
-        <form id="todo-form" class="mb-6 w-full">
-            <div class="input-group flex items-start gap-2 w-full">
-                <div class="main-input-container flex-grow flex flex-col gap-3">
-                    <!-- Changed input to textarea for better multiline support -->
-                    <textarea id="todo-input" class="w-full px-4 py-3 border border-outline rounded-lg text-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container resize-y min-h-[4rem]" placeholder="Add a new task..." required></textarea>
-                    
-                    <div class="options-container w-full flex flex-col gap-2">
-                        <div class="options-buttons flex gap-2 flex-wrap">
-                            <button type="button" id="toggle-date-btn" class="text-sm px-4 py-2 bg-surface-container-high border border-outline rounded-full cursor-pointer transition duration-200 ease-in-out flex-1 min-w-[120px] text-center text-on-surface-variant hover:bg-surface-container-highest active:bg-primary-container active:text-on-primary-container active:border-primary">
-                                <i class="far fa-calendar mr-2"></i>Due Date
-                            </button>
-                            <button type="button" id="toggle-category-btn" class="text-sm px-4 py-2 bg-surface-container-high border border-outline rounded-full cursor-pointer transition duration-200 ease-in-out flex-1 min-w-[120px] text-center text-on-surface-variant hover:bg-surface-container-highest active:bg-primary-container active:text-on-primary-container active:border-primary">
-                                <i class="fas fa-tags mr-2"></i>Category
-                            </button>
-                        </div>
-                        
-                        <div class="options-inputs flex flex-col gap-2 w-full relative">
-                            <!-- The "relative" class on the parent is important for absolute positioning -->
-                            <input type="date" id="due-date-input" class="hidden date-input-hidden">
-                            
-                            <input type="text" id="category-input" class="px-3 py-2 border border-outline rounded-lg w-full box-border text-on-surface hidden" placeholder="Add category (e.g., Work, Personal)" list="category-list" aria-label="Category">
-                            <datalist id="category-list"></datalist>
-                        </div>
-
-                        <!-- Make sure this is in your HTML near the date input -->
-                        <div id="selected-dates" class="selected-pills-container hidden"></div>
+<body class="p-8">
+    <!-- Desktop Sidebar (fixed position) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">ToDodo</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link" data-view="tasks">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="#" class="nav-link" data-view="calendar">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="#" class="nav-link nav-link-disabled">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+                <span class="coming-soon">Soon</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
                     </div>
-                </div>
-                
-                <button type="submit" title="Add task" class="add-btn w-12 h-12 flex-shrink-0 bg-primary text-on-primary rounded-xl text-2xl flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-primary/90 active:scale-105 shadow-md self-start">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </form>
-
-        <!-- Filter Bar -->
-        <div id="filter-bar" class="flex flex-wrap gap-2 my-6 pb-3 w-full border-b border-outline-variant">
-            <button id="filter-all" class="text-sm px-4 py-2 rounded-full border border-outline bg-surface-container text-on-surface-variant cursor-pointer mb-1 transition duration-200 ease-in-out hover:bg-surface-container-high active:bg-primary active:text-on-primary">All</button>
-            <button id="filter-todo" class="text-sm px-4 py-2 rounded-full border border-outline bg-surface-container text-on-surface-variant cursor-pointer mb-1 transition duration-200 ease-in-out hover:bg-surface-container-high active:bg-primary active:text-on-primary">Pending</button>
-            <button id="filter-done" class="text-sm px-4 py-2 rounded-full border border-outline bg-surface-container text-on-surface-variant cursor-pointer mb-1 transition duration-200 ease-in-out hover:bg-surface-container-high active:bg-primary active:text-on-primary">Completed</button>
-            <button id="filter-overdue" class="text-sm px-4 py-2 rounded-full border border-outline bg-surface-container text-on-surface-variant cursor-pointer mb-1 transition duration-200 ease-in-out hover:bg-surface-container-high active:bg-primary active:text-on-primary">Overdue</button>
-            
-            <!-- Dynamic Category Filters -->
-            <div id="category-filters" class="flex flex-wrap gap-2">
-                <!-- Category filter pills will be added here by JS -->
-            </div>
-             <div id="tag-filters" class="flex flex-wrap gap-2">
-                <!-- Tag filter pills will be added here by JS -->
+                </label>
             </div>
         </div>
+    </aside>
 
-        <!-- Task List -->
-        <ul id="todo-list" class="todo-list">
-            <!-- The empty state div should be inside the todo-list -->
-            <div id="empty-state" class="empty-state">No tasks here!</div>
-        </ul>
+    <!-- Main Content -->
+    <div class="app-wrapper">
+        <div class="app-container">
+            <h1 id="app-title" class="text-center text-on-surface text-3xl font-bold mb-6">Your To-Do List</h1>
+
+            <!-- Add To-Do Form -->
+            <form id="todo-form" class="mb-6 w-full">
+                <div class="input-group flex items-start gap-2 w-full">
+                    <div class="main-input-container flex-grow flex flex-col gap-3">
+                        <!-- Changed input to textarea for better multiline support -->
+                        <textarea id="todo-input" class="w-full px-4 py-3 border border-outline rounded-lg text-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container resize-y min-h-[4rem]" placeholder="Add a new task..." required></textarea>
+                        
+                        <div class="options-container w-full flex flex-col gap-2">
+                            <div class="options-buttons flex gap-2 flex-wrap">
+                                <button type="button" id="toggle-date-btn" class="text-sm px-4 py-2 bg-surface-container-high border border-outline rounded-full cursor-pointer transition duration-200 ease-in-out flex-1 min-w-[120px] text-center text-on-surface-variant hover:bg-surface-container-highest active:bg-primary-container active:text-on-primary-container active:border-primary">
+                                    <i class="far fa-calendar mr-2"></i> Date
+                                </button>
+                                <button type="button" id="toggle-category-btn" class="text-sm px-4 py-2 bg-surface-container-high border border-outline rounded-full cursor-pointer transition duration-200 ease-in-out flex-1 min-w-[120px] text-center text-on-surface-variant hover:bg-surface-container-highest active:bg-primary-container active:text-on-primary-container active:border-primary">
+                                    <i class="fas fa-tags mr-2"></i> Category
+                                </button>
+                            </div>
+                            
+                            <div class="options-inputs flex flex-col gap-2 w-full relative">
+                                <!-- The "relative" class on the parent is important for absolute positioning -->
+                                <input type="date" id="due-date-input" class="hidden date-input-hidden">
+                                
+                                <input type="text" id="category-input" class="px-3 py-2 border border-outline rounded-lg w-full box-border text-on-surface hidden" placeholder="Add category (e.g., Work, Personal)" list="category-list" aria-label="Category">
+                                <datalist id="category-list"></datalist>
+                            </div>
+
+                            <!-- Make sure this is in your HTML near the date input -->
+                            <div id="selected-dates" class="selected-pills-container hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" title="Add task" class="add-btn w-12 h-12 flex-shrink-0 bg-primary text-on-primary rounded-xl text-2xl flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-primary/90 active:scale-105 shadow-md self-start">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Filter Bar -->
+            <div id="filter-bar" class="flex flex-wrap gap-2 my-6 pb-3 w-full border-b border-outline-variant">
+                <button id="filter-all" class="filter-button">All</button>
+                <button id="filter-todo" class="filter-button">Pending</button>
+                <button id="filter-done" class="filter-button">Completed</button>
+                <button id="filter-overdue" class="filter-button">Overdue</button>
+                
+                <!-- Dynamic Category Filters -->
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <!-- Category filter pills will be added here by JS -->
+                </div>
+                 <div id="tag-filters" class="flex flex-wrap gap-2">
+                    <!-- Tag filter pills will be added here by JS -->
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <ul id="todo-list" class="todo-list">
+                <!-- The empty state div should be inside the todo-list -->
+                <div id="empty-state" class="empty-state">No tasks here!</div>
+            </ul>
+        </div>
+        
+        <!-- Calendar Container -->
+        <div id="calendar-container" class="calendar-container">
+            <!-- Calendar will be rendered here by JavaScript -->
+        </div>
     </div>
 
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link" data-view="tasks" onclick="switchMobileView('tasks')">
+            <i class="fas fa-tasks"></i>
+            <span>Tasks</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="calendar" onclick="switchMobileView('calendar')">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Calendar</span>
+        </a>
+        <a href="#" class="mobile-nav-link nav-link-disabled">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <a href="#" class="mobile-nav-link mobile-theme-toggle" onclick="toggleMobileTheme(); return false;">
+            <i class="fas fa-moon"></i>
+            <span>Theme</span>
+        </a>
+    </nav>
+
   <script type="module" src="js/app.js"></script>
+  <!-- Simple direct script for mobile navigation -->
+  <script>
+    // Direct mobile view switching
+    function switchMobileView(view) {
+      console.log('Mobile view switching to:', view);
+      
+      // Update active classes
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        if (link.getAttribute('data-view') === view) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      
+      // Update desktop sidebar links to match
+      document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('data-view') === view) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      
+      // Switch the view
+      const appContainer = document.querySelector('.app-container');
+      const calendarContainer = document.getElementById('calendar-container');
+      
+      if (view === 'tasks') {
+        appContainer.style.display = 'flex';
+        calendarContainer.style.display = 'none';
+      } else if (view === 'calendar') {
+        appContainer.style.display = 'none';
+        calendarContainer.style.display = 'flex';
+        
+        // Make sure calendar renders
+        if (window.Calendar && typeof window.Calendar.renderCalendar === 'function') {
+          window.Calendar.renderCalendar();
+        }
+      }
+      
+      // Save preference
+      localStorage.setItem('current-view', view);
+      
+      // Prevent default action
+      return false;
+    }
+    
+    // Toggle theme for mobile
+    function toggleMobileTheme() {
+      const checkbox = document.getElementById('checkbox');
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+        
+        // Trigger the change event on the checkbox
+        const event = new Event('change');
+        checkbox.dispatchEvent(event);
+        
+        // Update mobile button icon
+        updateMobileThemeIcon();
+      }
+    }
+    
+    // Update mobile theme icon based on current theme
+    function updateMobileThemeIcon() {
+      const currentTheme = localStorage.getItem('theme');
+      const themeToggle = document.querySelector('.mobile-theme-toggle i');
+      
+      if (themeToggle) {
+        if (currentTheme === 'dark') {
+          themeToggle.className = 'fas fa-sun';
+        } else {
+          themeToggle.className = 'fas fa-moon';
+        }
+      }
+    }
+    
+    // Set initial view on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedView = localStorage.getItem('current-view') || 'tasks';
+      switchMobileView(savedView);
+      
+      // Set initial theme icon
+      updateMobileThemeIcon();
+    });
+  </script>
 </body>
 </html>

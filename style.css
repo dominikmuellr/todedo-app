@@ -1,56 +1,81 @@
-/* CSS Variables for Material You inspired colors - Soft Green Palette */
+/* CSS Variables*/
 :root {
-    /* Primary color: A gentle, earthy green (#386A20) */
-    --color-primary: #386A20;
-    --color-on-primary: #FFFFFF;
-    --color-primary-container: #B8F394;
-    --color-on-primary-container: #082100;
+  /* Primary color:*/
+  --color-primary: #FF9494;
+  --color-primary-rgb: 59, 130, 246; /* RGB values for opacity */
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #FFE3E1;
+  --color-on-primary-container: #1f2937;
+  
+  /* Secondary color */
+  --color-secondary: #FF9494;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #e0f2fe;
+  --color-on-secondary-container: #0c4a6e;
+  
+  /* Tertiary color*/
+  --color-tertiary: #8b5cf6;
+  --color-on-tertiary: #FFFFFF;
+  --color-tertiary-container: #ede9fe;
+  --color-on-tertiary-container: #5b21b6;
+  
+  /* Error color */
+  --color-error: #ef4444;
+  --color-on-error: #FFFFFF;
+  --color-error-container: #fee2e2;
+  --color-on-error-container: #b91c1c;
+  
+  /* Warning color */
+  --color-warning: #f59e0b;
+  --color-on-warning: #FFFFFF;
+  --color-warning-container: #fef3c7;
+  --color-on-warning-container: #92400e;
+  
+  /* Neutral colors: */
+  --color-background: #f9fafb;
+  --color-on-background: #1f2937;
+  
+  --color-surface: #ffffff;
+  --color-on-surface: #1f2937;
+  --color-surface-variant: #f3f4f6;
+  --color-on-surface-variant: #4b5563;
+  
+  --color-outline: #FFE3E1;
+  --color-outline-variant: #f3f4f6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f9fafb;
+  --color-surface-container: #f3f4f6;
+  --color-surface-container-high: #FFE3E1;
+  --color-surface-container-highest: #f3f4f6;
+  
+  /* Modern shadows */
+  --shadow-elevation-1: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+  --shadow-elevation-2: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-elevation-3: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
 
-    /* Secondary color: A muted, complementary brown-green */
-    --color-secondary: #566249;
-    --color-on-secondary: #FFFFFF;
-    --color-secondary-container: #DAE7C8;
-    --color-on-secondary-container: #141E0B;
-
-    /* Tertiary color: A subtle, soft blue-grey for accent */
-    --color-tertiary: #386568;
-    --color-on-tertiary: #FFFFFF;
-    --color-tertiary-container: #BCEBF0;
-    --color-on-tertiary-container: #002022;
-
-    /* Error color: standard red for warnings/errors */
-    --color-error: #BA1A1A;
-    --color-on-error: #FFFFFF;
-    --color-error-container: #FFDAD6;
-    --color-on-error-container: #410002;
-
-    /* Warning color: amber for due soon/today */
-    --color-warning: #FFB300;
-    --color-on-warning: #212121;
-    --color-warning-container: #FFE082;
-    --color-on-warning-container: #553C00;
-
-    /* Neutral colors: for background, surfaces, and outlines */
-    --color-background: #FDFDF6;
-    --color-on-background: #1A1C18;
-
-    --color-surface: #FDFDF6;
-    --color-on-surface: #1A1C18;
-    --color-surface-variant: #DFE4D7;
-    --color-on-surface-variant: #43483F;
-
-    --color-outline: #74796F;
-    --color-outline-variant: #C3C8BC;
-    --color-surface-container-lowest: #FFFFFF;
-    --color-surface-container-low: #F7F7F0;
-    --color-surface-container: #F1F1EB;
-    --color-surface-container-high: #EBEBE5;
-    --color-surface-container-highest: #E5E5DE;
-
-    /* Material You standard elevation/shadows */
-    --shadow-elevation-1: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
-    --shadow-elevation-2: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
-    --shadow-elevation-3: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+/* Dark mode variables */
+html[data-theme='dark'] {
+  --color-primary: #FF9494;
+  --color-on-primary: #000000;
+  --color-primary-container: #FFE3E1;
+  --color-on-primary-container: #1f2937;
+  
+  --color-background: #121212;
+  --color-on-background: #e0e0e0;
+  
+  --color-surface: #1e1e1e;
+  --color-on-surface: #e0e0e0;
+  --color-surface-variant: #2c2c2c;
+  --color-on-surface-variant: #c4c7c5;
+  
+  --color-outline: #938f99;
+  --color-outline-variant: #444746;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1a1c1e;
+  --color-surface-container: #2c2c2c;
+  --color-surface-container-high: #444746;
+  --color-surface-container-highest: #343a3f;
 }
 
 /* Base styles using CSS variables and Inter font */
@@ -66,14 +91,362 @@ body {
     align-items: flex-start;
 }
 
+/* App Wrapper - contains todo list and calendar */
+.app-wrapper {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: stretch; /* Changed from flex-start to stretch to ensure same height */
+  position: relative; /* For sidebar positioning */
+}
+
 .app-container {
   max-width: 560px;
-  margin: 2rem auto;
+  margin: 0;
   background: var(--color-surface-container);
-  padding: 1.5rem; /* 24px */
+  padding: 1.5rem;
   border-radius: 16px;
   box-shadow: var(--shadow-elevation-2);
-  /* overflow: hidden; /* Consider if needed, can clip calendar if not appended to body */
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Calendar container */
+.calendar-container {
+  background: var(--color-surface-container);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-elevation-2);
+  flex: 1;
+  max-width: 560px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Calendar styles */
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+/* Calendar navigation controls */
+.calendar-nav-controls {
+  display: flex;
+  gap: 8px;
+}
+
+/* Calendar navigation buttons */
+.calendar-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  padding: 0;
+}
+
+.calendar-nav-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: scale(1.1);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  flex-grow: 1;
+  overflow: hidden;
+  grid-template-rows: auto 1fr 1fr 1fr 1fr 1fr 1fr; /* First row for headers, then 6 rows of dates */
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  padding: 8px 0;
+  font-weight: 500;
+}
+
+.calendar-date {
+  position: relative;
+  padding: 6px;
+  border-radius: 8px;
+  background-color: var(--color-surface-container-highest);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  min-height: 40px; /* Ensure minimum height */
+  overflow: hidden; /* Contain content */
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-date:hover {
+  background-color: var(--color-surface-variant);
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.calendar-date.other-month {
+  opacity: 0.5;
+}
+
+.calendar-date.today {
+  background-color: var(--color-primary-container);
+}
+
+.calendar-date.selected {
+  background-color: var(--color-primary);
+}
+
+.calendar-date.selected .date-number {
+  color: var(--color-on-primary);
+}
+
+.date-number {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-on-surface);
+}
+
+.calendar-date.today .date-number {
+  color: var(--color-on-primary-container);
+  font-weight: 700;
+}
+
+.task-indicator {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* Calendar sidebar */
+.calendar-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 350px;
+  max-width: 90vw;
+  max-height: 80vh;
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-elevation-3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.calendar-sidebar.hidden {
+  transform: translateY(-50%) translateX(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  color: var(--color-on-surface-variant);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.sidebar-close-btn:hover {
+  background-color: var(--color-surface-variant);
+}
+
+.sidebar-content {
+  padding: 16px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.sidebar-task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-task-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.sidebar-task-item:last-child {
+  border-bottom: none;
+}
+
+.task-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-outline);
+  border-radius: 4px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.task-checkbox.checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.task-checkbox i {
+  color: var(--color-on-primary);
+  font-size: 14px;
+}
+
+.task-text {
+  flex-grow: 1;
+  margin-right: 12px;
+  font-size: 1rem;
+}
+
+.sidebar-task-item.task-done .task-text {
+  text-decoration: line-through;
+  color: var(--color-on-surface-variant);
+}
+
+.task-delete-btn {
+  background: none;
+  border: none;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.task-delete-btn:hover {
+  color: var(--color-error);
+  background-color: var(--color-error-container);
+}
+
+.add-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 16px;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-task-btn:hover {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+  .app-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .calendar-container, .app-container {
+    max-width: 560px;
+    width: 100%;
+  }
+  
+  .calendar-sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform: translateY(0);
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 70vh;
+  }
+  
+  .calendar-sidebar.hidden {
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: 600px) {
+  .calendar-date {
+    padding-top: 75%; /* Taller cells on mobile */
+  }
 }
 
 h1 {
@@ -344,7 +717,7 @@ li.todo-item:last-child {
 
 .task-top-row > span { /* The main task text */
   flex-grow: 1;
-  break-word: break-word;
+  overflow-wrap: break-word;
   cursor: pointer;
   color: var(--color-on-surface);
   font-size: 1.125rem;
@@ -544,6 +917,21 @@ li.todo-item:last-child {
     transform: none !important;
     margin: 0 auto !important;
   }
+  
+  /* Fix white line at top */
+  body.p-8 {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Fix navigation bar to stay in place */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+  }
 }
 
 /* Utility classes */
@@ -650,5 +1038,313 @@ input.category-modal-input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px var(--color-primary-container);
+}
+
+/* Dark mode toggle */
+.theme-switch-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+ 
+}
+
+.theme-switch {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e2e2e2; /* Darker background color for better visibility */
+  transition: 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px; /* Adjusted for border */
+  background-color: #ffffff; /* Brighter white */
+  transition: 0.5s;
+  z-index: 2;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2); /* Shadow for button */
+}
+
+.fa-moon, .fa-sun {
+  color: #4b5563; /* Darker color for icons for better visibility */
+  font-size: 16px;
+  z-index: 1;
+}
+
+input:checked + .slider {
+  background-color: var(--color-outline);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.calendar-date.today:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.calendar-date.today:hover .date-number {
+  color: var(--color-on-primary);
+}
+
+.calendar-date.other-month:hover {
+  opacity: 0.8;
+  background-color: var(--color-surface-container-high);
+}
+
+.calendar-date.selected:hover {
+  background-color: var(--color-primary-container);
+}
+
+/* Style for dates with tasks on hover */
+.calendar-date:has(.task-indicator):hover {
+  background-color: var(--color-tertiary-container);
+}
+
+.calendar-date:has(.task-indicator):hover .task-indicator {
+  transform: scale(1.15);
+  background-color: var(--color-tertiary);
+}
+
+/* Add sidebar and mobile navigation styles */
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 240px;
+  background-color: var(--md-sys-color-surface-container);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border-radius: 0 24px 24px 0;
+  margin: 4px 0;
+  position: relative;
+}
+
+.nav-link i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.nav-link.active {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-weight: 500;
+}
+
+.nav-link:hover:not(.active) {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.nav-link-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.coming-soon {
+  position: absolute;
+  right: 16px;
+  font-size: 0.65rem;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  margin-top: auto;
+}
+
+/* Enhanced Mobile Navigation */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--md-sys-color-surface-container);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding: 10px 8px; /* Slightly less padding to fit 4 items */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000; /* Ensure it's above everything */
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mobile-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  padding: 10px 8px; /* Adjusted padding for 4 items */
+  border-radius: 12px;
+  transition: all 0.2s;
+  flex: 1;
+  max-width: 80px; /* Limit width to prevent overflow */
+  min-width: 60px; /* Ensure minimum size */
+}
+
+.mobile-nav-link i {
+  font-size: 1.4rem; /* Slightly smaller icon for 4 items */
+  margin-bottom: 4px;
+}
+
+.mobile-nav-link span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mobile-nav-link.active {
+  color: var(--md-sys-color-primary);
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.mobile-theme-toggle i {
+  transition: transform 0.3s ease;
+}
+
+.mobile-theme-toggle:active i {
+  transform: rotate(180deg);
+}
+
+/* App wrapper - adjust to accommodate sidebar */
+.app-wrapper {
+  margin-left: 240px;
+  padding: 20px;
+  width: calc(100% - 240px);
+  min-height: 100vh;
+}
+
+/* Calendar container */
+.calendar-container {
+  display: none; /* Initially hidden, shown via JS */
+  width: 100%;
+  flex-direction: column;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Hide sidebar on mobile */
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  /* Show mobile navigation */
+  .mobile-nav {
+    display: flex;
+  }
+  
+  /* Remove sidebar margin from app wrapper */
+  .app-wrapper {
+    margin-left: 0;
+    width: 100%;
+    padding-bottom: 80px; /* More space for mobile nav */
+  }
+  
+  /* Adjust body padding */
+  body.p-8 {
+    padding: 1rem !important;
+  }
+}
+
+/* Filter button styles */
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.filter-button:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.filter-button.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
 }
 

@@ -25,6 +25,9 @@ export function addTask(taskText, dueDate, category = '', tags = []) {
     tasks.push(newTask);
     Storage.saveTasksToStorage(tasks);
     
+    // Notify that tasks were updated for calendar view
+    document.dispatchEvent(new CustomEvent('tasks-updated'));
+    
     renderTasks();
 }
 
@@ -33,6 +36,10 @@ export function deleteTask(taskId) {
     let tasks = Storage.getTasksFromStorage();
     tasks = tasks.filter(t => t.id !== taskId);
     Storage.saveTasksToStorage(tasks);
+    
+    // Notify that tasks were updated for calendar view
+    document.dispatchEvent(new CustomEvent('tasks-updated'));
+    
     renderTasks();
 }
 
@@ -128,6 +135,10 @@ export function toggleTaskDone(taskId) {
 
   tasks[taskIndex].done = !tasks[taskIndex].done;
   Storage.saveTasksToStorage(tasks);
+  
+  // Notify that tasks were updated for calendar view
+  document.dispatchEvent(new CustomEvent('tasks-updated'));
+  
   renderTasks();
 }
 
@@ -236,6 +247,10 @@ export function updateTaskDate(taskId, newDate) {
         if (taskIndex !== -1) {
             tasks[taskIndex].dueDate = newDate.toISOString();
             Storage.saveTasksToStorage(tasks);
+            
+            // Notify that tasks were updated for calendar view
+            document.dispatchEvent(new CustomEvent('tasks-updated'));
+            
             renderTasks();
         }
     } catch (err) {

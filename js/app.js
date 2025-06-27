@@ -6,6 +6,7 @@ import * as Filters from './filters.js';
 import * as Storage from './storage.js';
 import * as RandomTitle from './randomTitle.js';
 import * as DatePickerUtils from './datePickerUtils.js';
+import * as Calendar from './calendar.js';
 
 // Error Handling
 function showError(message) {
@@ -57,6 +58,12 @@ function initApp() {
     try {
         RandomTitle.setRandomTitle('app-title');
         DatePickerUtils.initNativeDatePicker('due-date-input', 'toggle-date-btn', 'selected-dates');
+        
+        // Initialize calendar
+        Calendar.initCalendar('calendar-container');
+        
+        // Setup navigation
+        setupNavigation();
 
         // DOM Element Selection
         const todoForm = document.getElementById('todo-form');
@@ -230,6 +237,76 @@ function initApp() {
     } catch (error) {
         console.error("Failed to initialize app:", error);
         showError("Application initialization failed. Please refresh the page or check the console for details.");
+    }
+}
+
+// Setup Navigation
+function setupNavigation() {
+    try {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const appContainer = document.querySelector('.app-container');
+        const calendarContainer = document.getElementById('calendar-container');
+        
+        // Function to switch views
+        function switchView(view) {
+            // Update active state for desktop sidebar
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-view') === view) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Update active state for mobile navigation
+            mobileNavLinks.forEach(link => {
+                if (link.getAttribute('data-view') === view) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Show the appropriate view
+            if (view === 'tasks') {
+                appContainer.style.display = 'flex';
+                calendarContainer.style.display = 'none';
+            } else if (view === 'calendar') {
+                appContainer.style.display = 'none';
+                calendarContainer.style.display = 'flex';
+                // Ensure calendar is rendered properly
+                if (window.Calendar && typeof window.Calendar.renderCalendar === 'function') {
+                    window.Calendar.renderCalendar();
+                }
+            }
+            
+            // Save view preference
+            localStorage.setItem('current-view', view);
+        }
+        
+        // Add click handlers to all navigation links
+        function setupNavLinks(links) {
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const view = this.getAttribute('data-view');
+                    if (view === 'tasks' || view === 'calendar') {
+                        switchView(view);
+                    }
+                });
+            });
+        }
+        
+        setupNavLinks(navLinks);
+        setupNavLinks(mobileNavLinks);
+        
+        // Set initial view from localStorage
+        const savedView = localStorage.getItem('current-view') || 'tasks';
+        switchView(savedView);
+    } catch (error) {
+        console.error("Error setting up navigation:", error);
+        showError("Could not setup navigation: " + error.message);
     }
 }
 
