@@ -5,8 +5,16 @@
 - [ ] Add drag and drop reordering
 - [ ] Create recurring tasks feature
 - [ ] Add mobile responsive design improvements
+- [ ] Change name
 - [ ] Create an .apk
-- [ ] ...much more
+- [ ] ...
+
+
+
+## Live Demo:
+https://dominikmuellr.github.io/todo-app/
+
+
 
 
 ## About This Project
