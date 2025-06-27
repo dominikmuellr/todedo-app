@@ -5,3 +5,9 @@
 - [ ] Create recurring tasks feature
 - [ ] Add mobile responsive design improvements
 - [ ] ...much more
+
+## About This Project
+
+This project is entirely developed and maintained by me, dominikmuellr.
+
+While GitHub may list other contributors due to forks or code reuse, all original work and commits are mine.
