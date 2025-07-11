@@ -1,14 +1,16 @@
 {
   "name": "todoapp",
-  "version": "1.0.0",
-  "description": "A modern To-Do app with build optimization",
+  "private": true,
+  "version": "0.0.1-dev-cristina",
+  "description": "A modern To-Do app",
   "type": "module",
+  "homepage": "https://dominikmuellr.github.io/todo-app/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite",
-    "serve": "vite preview"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "todo",
@@ -20,17 +22,18 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.11",
+    "@tailwindcss/vite": "^4.0.0-alpha.17",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4.0.0-alpha.17",
     "terser": "^5.43.1",
-    "vite": "^6.0.1"
+    "vite": "^5.2.0"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.6.0",
-    "date-fns": "^4.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "date-fns": "^3.6.0",
     "react": "^19.1.0",
     "react-day-picker": "^9.7.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^18.2.0"
   }
 }
