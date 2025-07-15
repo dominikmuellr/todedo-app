@@ -5,7 +5,7 @@
   "start_url": "/todedo-app/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#386A20",
+  "theme_color": "#f9fafb",
   "orientation": "portrait-primary",
   "scope": "/todedo-app/",
   "lang": "en",

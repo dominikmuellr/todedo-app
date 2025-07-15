@@ -4,7 +4,6 @@
   <!-- Meta Information -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <meta name="theme-color" content="#386A20">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -24,7 +23,6 @@
   <meta name="mobile-web-app-title" content="ToDeDo">
   
   <!-- Android Chrome -->
-  <meta name="theme-color" content="#386A20">
   <meta name="background-color" content="#ffffff">
   
   <!-- PWA Manifest -->
@@ -64,6 +62,39 @@
       if (savedColorTheme && savedColorTheme !== 'rose') {
         document.documentElement.setAttribute('data-color-theme', savedColorTheme);
       }
+      
+      // Update theme-color meta tag for Android status bar
+      function updateThemeColor() {
+        let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (!themeColorMeta) {
+          themeColorMeta = document.createElement('meta');
+          themeColorMeta.name = 'theme-color';
+          document.head.appendChild(themeColorMeta);
+        }
+        
+        if (shouldBeDark) {
+          themeColorMeta.content = '#121212'; // Dark mode: exact match to --color-background
+        } else {
+          themeColorMeta.content = '#f9fafb'; // Light mode: exact match to --color-background
+        }
+      }
+      
+      updateThemeColor();
+      
+      // Listen for theme changes and update theme-color accordingly
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addListener(function() {
+        const currentSavedTheme = localStorage.getItem('react-theme');
+        if (currentSavedTheme === 'auto' || !currentSavedTheme) {
+          shouldBeDark = mediaQuery.matches;
+          if (shouldBeDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+          updateThemeColor();
+        }
+      });
     })();
   </script>
   

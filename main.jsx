@@ -3,7 +3,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './src/App.jsx'
 import './src/style.css'
-import { registerSW } from 'virtual:pwa-register'
 
 // Theme Initialization
 const savedTheme = localStorage.getItem('react-theme');
@@ -19,36 +18,43 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 // PWA Service Worker Registration
-console.log('PWA Debug - Starting service worker registration...');
+async function initializePWA() {
+  // Only initialize PWA in production builds
+  if (import.meta.env.PROD) {
+    try {
+      // Use eval to completely hide the import from Vite's static analysis
+      const importPath = 'virtual:pwa-register';
+      const pwaModule = await eval(`import('${importPath}')`);
+      const { registerSW } = pwaModule;
+      console.log('PWA Debug - Starting service worker registration...');
+      
+      const updateSW = registerSW({
+        onNeedRefresh() {
+          console.log('PWA Debug - SW update available');
+          window.dispatchEvent(new CustomEvent('sw-update-available'));
+        },
+        onOfflineReady() {
+          console.log('PWA Debug - App ready to work offline');
+        },
+        onRegistered(registration) {
+          console.log('PWA Debug - Service worker registered successfully:', registration);
+        },
+        onRegisterError(error) {
+          console.error('PWA Debug - Service worker registration failed:', error);
+        }
+      });
 
-const updateSW = registerSW({
-  onNeedRefresh() {
-    console.log('PWA Debug - SW update available');
-    window.dispatchEvent(new CustomEvent('sw-update-available'));
-  },
-  onOfflineReady() {
-    console.log('PWA Debug - App ready to work offline');
-  },
-  onRegistered(registration) {
-    console.log('PWA Debug - Service worker registered successfully:', registration);
-  },
-  onRegisterError(error) {
-    console.error('PWA Debug - Service worker registration failed:', error);
+      console.log('PWA Debug - Service worker registration initiated, updateSW:', updateSW);
+      
+      // Make updateSW available globally for PWA update notifications
+      window.updateSW = updateSW;
+    } catch (error) {
+      console.log('PWA not available in this build mode:', error.message);
+    }
+  } else {
+    console.log('PWA disabled in development mode');
   }
-})
+}
 
-console.log('PWA Debug - Service worker registration initiated, updateSW:', updateSW);
-
-// Debug: Check manifest and PWA readiness
-console.log('PWA Debug - Checking manifest and PWA criteria...');
-fetch('/todo-app/manifest.json')
-  .then(response => response.json())
-  .then(manifest => {
-    console.log('PWA Debug - Manifest loaded:', manifest);
-  })
-  .catch(error => {
-    console.error('PWA Debug - Manifest load failed:', error);
-  });
-
-// Make updateSW available globally for PWA update notifications
-window.updateSW = updateSW; 
+// Initialize PWA
+initializePWA(); 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { updateAndroidStatusBarColor } from '../utils/themeUtils';
 import { getPersonalizedGreeting } from '../utils/randomTitles.js';
 
 function Settings() {
@@ -105,6 +106,9 @@ function Settings() {
     } else {
       document.documentElement.setAttribute('data-color-theme', color);
     }
+    
+    // Update Android status bar color
+    setTimeout(updateAndroidStatusBarColor, 50);
     
     console.log('Theme applied - data-theme:', document.documentElement.getAttribute('data-theme'), 'data-color-theme:', document.documentElement.getAttribute('data-color-theme'));
   };

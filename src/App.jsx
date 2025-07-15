@@ -14,6 +14,7 @@ import PWAUpdateNotification from './components/PWAUpdateNotification';
 
 // Utils
 import { getRandomTitle, getPersonalizedGreeting, getGreetingInfo, parseGreeting } from './utils/randomTitles';
+import { updateAndroidStatusBarColor, initializeThemeColorListener } from './utils/themeUtils';
 
 function App() {
   // State Management
@@ -32,6 +33,9 @@ function App() {
 
   // Effects
   useEffect(() => {
+    // Initialize theme color listener
+    const observer = initializeThemeColorListener();
+    
     const savedTheme = localStorage.getItem('react-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
@@ -53,6 +57,16 @@ function App() {
     } else {
       document.documentElement.removeAttribute('data-color-theme');
     }
+    
+    // Initial status bar color update
+    setTimeout(updateAndroidStatusBarColor, 100);
+    
+    // Cleanup function
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -118,6 +132,9 @@ function App() {
       document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem('react-theme', 'light');
     }
+    
+    // Update Android status bar color
+    setTimeout(updateAndroidStatusBarColor, 50);
   };
 
   const handleNameSubmit = (name) => {

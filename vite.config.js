@@ -4,17 +4,20 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
-  // Plugins
-  plugins: [
+export default defineConfig(({ mode }) => {
+  const isDev = mode === 'development'
+  
+  // Base plugins that are always included
+  const basePlugins = [
     react(), 
     tailwindcss(),
+  ]
+  
+  // Only add PWA plugin in production builds
+  const plugins = isDev ? basePlugins : [
+    ...basePlugins,
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true,
-        type: 'module'
-      },
       includeAssets: ['favicon.svg', 'icon.svg', 'pwa-192x192.svg', 'pwa-512x512.svg'],
       manifest: false, // Use our custom manifest.json instead
       workbox: {
@@ -34,7 +37,11 @@ export default defineConfig({
         ]
       }
     })
-  ],
+  ]
+
+  return {
+  // Plugins
+  plugins,
 
   // Development Server
   server: {
@@ -74,4 +81,5 @@ export default defineConfig({
   
   // Base Path
   base: '/todedo-app/',
+  }
 }) 
