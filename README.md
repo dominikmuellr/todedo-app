@@ -3,6 +3,7 @@
 - [ ] Add ability to sort tasks by date or priority
 - [x] Implement dark mode toggle
 - [ ] Add drag and drop reordering
+- [ ] Add function for time
 - [ ] Create recurring tasks feature
 - [ ] Add mobile responsive design improvements
 - [x] Change name
