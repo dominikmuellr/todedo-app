@@ -2,30 +2,30 @@
   "name": "ToDeDo - Task Manager",
   "short_name": "ToDeDo",
   "description": "A modern and intuitive task management application",
-  "start_url": "/todo-app/",
+  "start_url": "/todedo-app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#386A20",
   "orientation": "portrait-primary",
-  "scope": "/todo-app/",
+  "scope": "/todedo-app/",
   "lang": "en",
   "categories": ["productivity", "utilities"],
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/todo-app/pwa-192x192.svg",
+      "src": "/todedo-app/pwa-192x192.svg",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/todo-app/pwa-512x512.svg",
+      "src": "/todedo-app/pwa-512x512.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/todo-app/pwa-512x512.svg",
+      "src": "/todedo-app/pwa-512x512.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
