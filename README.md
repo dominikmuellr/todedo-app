@@ -15,12 +15,12 @@
 
 This application is now a **Progressive Web App (PWA)** with the following features:
 
-### 📱 Installation
+###  Installation
 - **Install on any device**: Works on mobile, tablet, and desktop
 - **Add to Home Screen**: Install directly from your browser
 - **Cross-platform**: Works on iOS, Android, Windows, macOS, and Linux
 
-### 🔄 Offline Support
+###  Offline Support
 - **Offline functionality**: Access your tasks even without internet
 - **Automatic caching**: App resources are cached for fast loading
 - **Background sync**: Changes sync when connection is restored
@@ -31,10 +31,10 @@ This application is now a **Progressive Web App (PWA)** with the following featu
 3. **Manual**: Use the install button that appears in the app when available
 
 ### Browser Support
-- ✅ Chrome/Chromium (full support)
-- ✅ Edge (full support)  
-- ✅ Firefox (basic support)
-- ✅ Safari (iOS 11.3+, basic support)
+- [x] Chrome/Chromium (full support)
+- [x] Edge (full support)  
+- [x] Firefox (basic support)
+- [x] Safari (iOS 11.3+, basic support)
 
 ## Live Demo:
 https://dominikmuellr.github.io/todedo-app/   --> v.0.0.1-dev-cristina
