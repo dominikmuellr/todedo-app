@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import './style.css';
+
+// Components
 import Calendar from './components/Calendar';
-import Sidebar from './components/Sidebar';
-import MobileNav from './components/MobileNav';
-import TaskForm from './components/TaskForm';
 import FilterBar from './components/FilterBar';
-import TaskList from './components/TaskList';
+import MobileNav from './components/MobileNav';
 import Settings from './components/Settings';
-import { getPersonalizedGreeting, getRandomTitle, parseGreeting, getGreetingInfo } from './utils/randomTitles';
+import Sidebar from './components/Sidebar';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import PWAUpdateNotification from './components/PWAUpdateNotification';
+
+// Utils
+import { getRandomTitle, getPersonalizedGreeting, getGreetingInfo, parseGreeting } from './utils/randomTitles';
 
 function App() {
   // State Management
@@ -43,10 +50,8 @@ function App() {
       } else {
         document.documentElement.setAttribute('data-color-theme', savedColorTheme);
       }
-      console.log('Color theme loaded from localStorage:', savedColorTheme);
     } else {
       document.documentElement.removeAttribute('data-color-theme');
-      console.log('Using default rose theme');
     }
   }, []);
 
@@ -220,7 +225,7 @@ function App() {
   return (
     <div className="app-container md:p-8 p-0">
       <div className="app-title-outside">
-        tododo
+        ToDeDo
       </div>
       
       <div className="greeting-header">
@@ -260,7 +265,6 @@ function App() {
               })()} className="greeting-with-wavy-underline">
                 {(() => {
                   const { parts } = parseGreeting(currentGreeting, userName);
-                  console.log('Greeting parts:', { parts, currentGreeting, userName });
                   return (
                     <>
                       {parts.map((part, index) => (
@@ -292,58 +296,57 @@ function App() {
         />
 
         <div className="main-task-card">
+          {currentView === 'tasks' ? (
+            <div className="tasks-view-container">
+              <div className="tasks-view-full">
+                <FilterBar
+                  activeFilter={activeFilter}
+                  filterValue={filterValue}
+                  onFilterChange={handleFilterChange}
+                  tags={existingTags}
+                  taskCounts={taskCounts}
+                  onClearCompleted={clearCompletedTasks}
+                  onToggleSort={toggleSortOrder}
+                />
 
-            {currentView === 'tasks' ? (
-              <div className="tasks-view-container">
-                <div className="tasks-view-full">
-                  <FilterBar
-                    activeFilter={activeFilter}
-                    filterValue={filterValue}
-                    onFilterChange={handleFilterChange}
-                    tags={existingTags}
-                    taskCounts={taskCounts}
-                    onClearCompleted={clearCompletedTasks}
-                    onToggleSort={toggleSortOrder}
+                <TaskList
+                  tasks={filteredTasks}
+                  onToggleTask={toggleTask}
+                  onDeleteTask={deleteTask}
+                  onUpdateTaskDate={updateTaskDate}
+                  activeFilter={activeFilter}
+                  totalTaskCount={tasks.length}
+                />
+
+                <div className="task-form-bottom">
+                  <TaskForm 
+                    onAddTask={addTask}
                   />
-
-                  <TaskList
-                    tasks={filteredTasks}
-                    onToggleTask={toggleTask}
-                    onDeleteTask={deleteTask}
-                    onUpdateTaskDate={updateTaskDate}
-                    activeFilter={activeFilter}
-                    totalTaskCount={tasks.length}
-                  />
-
-                  <div className="task-form-bottom">
-                    <TaskForm 
-                      onAddTask={addTask}
-                    />
-                  </div>
                 </div>
               </div>
-            ) : currentView === 'calendar' ? (
-              <Calendar 
-                tasks={tasks}
-                onToggleTask={toggleTask}
-                onDeleteTask={deleteTask}
-                onAddTask={addTaskFromCalendar}
-                onUpdateTaskDate={updateTaskDate}
-              />
-            ) : currentView === 'settings' ? (
-              <Settings />
-            ) : null}
+            </div>
+          ) : currentView === 'calendar' ? (
+            <Calendar 
+              tasks={tasks}
+              onToggleTask={toggleTask}
+              onDeleteTask={deleteTask}
+              onAddTask={addTaskFromCalendar}
+              onUpdateTaskDate={updateTaskDate}
+            />
+          ) : currentView === 'settings' ? (
+            <Settings />
+          ) : null}
         </div>
 
         <div className={`right-sidebar ${rightSidebarOpen ? 'open' : ''}`}>
           <div className="task-form-container">
-              <Calendar 
-                tasks={tasks}
-                onToggleTask={toggleTask}
-                onDeleteTask={deleteTask}
-                onAddTask={addTaskFromCalendar}
-                onUpdateTaskDate={updateTaskDate}
-              />
+            <Calendar 
+              tasks={tasks}
+              onToggleTask={toggleTask}
+              onDeleteTask={deleteTask}
+              onAddTask={addTaskFromCalendar}
+              onUpdateTaskDate={updateTaskDate}
+            />
           </div>
         </div>
       </div>
@@ -357,8 +360,11 @@ function App() {
         <span className="small-info-display">Made in Europe</span>
         <span className="small-info-display">v0.0.1-dev.cristina</span>
       </div>
+
+      <PWAInstallPrompt />
+      <PWAUpdateNotification />
     </div>
   );
 }
 
-export default App; 
+export default App;
