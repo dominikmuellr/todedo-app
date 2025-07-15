@@ -38,7 +38,7 @@ This application is now a **Progressive Web App (PWA)** with the following featu
 - [x] Safari (iOS 11.3+, basic support)
 
 ## Live Demo:
-https://dominikmuellr.github.io/todedo-app/   --> v.0.1.0-dev-cristina
+https://dominikmuellr.github.io/todedo-app/   --> v0.1.0-dev-cristina
 
 
 ## About This Project
