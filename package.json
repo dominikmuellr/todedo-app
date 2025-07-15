@@ -4,7 +4,7 @@
   "version": "0.0.1-dev-cristina",
   "description": "A modern To-Do app",
   "type": "module",
-  "homepage": "https://dominikmuellr.github.io/todo-app/",
+  "homepage": "https://dominikmuellr.github.io/todedo-app/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
