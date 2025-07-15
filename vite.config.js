@@ -73,5 +73,5 @@ export default defineConfig({
   },
   
   // Base Path
-  base: '/todo-app/',
+  base: '/todedo-app/',
 }) 
