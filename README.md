@@ -1,5 +1,5 @@
 ## Live Demo:
-https://dominikmuellr.github.io/todedo-app/   --> New Version v.0.1.0-dev-cristina
+https://dominikmuellr.github.io/todedo-app/   --> New Version v0.1.0-dev-cristina
 
 ## ToDeDo's  ;)
 
