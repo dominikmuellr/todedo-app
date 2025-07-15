@@ -375,7 +375,7 @@ function App() {
 
       <div className="small-info-text">
         <span className="small-info-display">Made in Europe</span>
-        <span className="small-info-display">v0.0.1-dev.cristina</span>
+        <span className="small-info-display">v0.1.0-dev.cristina</span>
       </div>
 
       <PWAInstallPrompt />

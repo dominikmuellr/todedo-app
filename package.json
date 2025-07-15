@@ -1,7 +1,7 @@
 {
   "name": "todoapp",
   "private": true,
-  "version": "0.0.1-dev-cristina",
+  "version": "0.1.0-dev-cristina",
   "description": "A modern To-Do app",
   "type": "module",
   "homepage": "https://dominikmuellr.github.io/todedo-app/",
